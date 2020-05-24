@@ -1,0 +1,22 @@
+{
+  "data": [
+    {
+      "name": "Salary",
+      "type": "income",
+      "amount": 42000,
+      "id": 1
+    },
+    {
+      "name": "Groceries",
+      "type": "expenditure",
+      "amount": 4000,
+      "id": 2
+    },
+    {
+      "name": "Travel",
+      "type": "expenditure",
+      "amount": 3000,
+      "id": 3
+    }
+  ]
+}
