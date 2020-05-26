@@ -31,8 +31,9 @@ function App() {
 
   useEffect(() => {
     try {
-      dispatch(handleReceiveData())
-      setLoading(false)
+      dispatch(handleReceiveData()).then(() => {
+        setLoading(false)
+      })
     } catch (error) {
       setLoading(false)
     }
@@ -40,37 +41,19 @@ function App() {
 
   const handleClear = () => setEdit(null)
 
-  const handleDelete = id => dispatch(handleRemoveData(id))
+  const handleDelete = id => {
+    dispatch(handleRemoveData(id)).then(() => {
+      if (edit?.id === id) {
+        setEdit(null)
+      }
+    })
+  }
 
   const handleSubmit = (name, type, amount) => {
     if (edit) {
       dispatch(handleUpdateData(edit.id, { name, type, amount }))
     } else {
       dispatch(handleAddData({ name, type, amount }))
-    }
-  }
-
-  const handleOperations = event => {
-    if (event.target.nodeName === 'BUTTON') {
-      const id = parseInt(event.target.attributes['data-id'].value, 10)
-
-      if (event.target.name === 'edit') {
-        const amount = parseInt(
-          event.target.attributes['data-amount'].value,
-          10
-        )
-        const name = event.target.attributes['data-name'].value
-        const type = event.target.attributes['data-type'].value
-
-        setEdit({ id, name, type, amount })
-      } else if (event.target.name === 'delete') {
-        if (edit?.id === id) {
-          setEdit(null)
-        }
-        handleDelete(id)
-      }
-    } else {
-      return null
     }
   }
 
@@ -109,7 +92,11 @@ function App() {
         <Container>
           <SankeyDiagram data={data} />
           <DataContainer>
-            <CashflowList data={data} handleOperations={handleOperations} />
+            <CashflowList
+              data={data}
+              handleDelete={handleDelete}
+              setEdit={setEdit}
+            />
             <Form
               edit={edit}
               handleClear={handleClear}

@@ -6,7 +6,15 @@ import styled from 'styled-components'
 import Amount from './Amount'
 import { Button, ButtonGroup } from '../elements'
 
-function CashflowItem({ amount, className, id, name, type }) {
+function CashflowItem({
+  amount,
+  className,
+  handleDelete,
+  id,
+  name,
+  setEdit,
+  type
+}) {
   const { t } = useTranslation()
 
   return (
@@ -21,11 +29,8 @@ function CashflowItem({ amount, className, id, name, type }) {
             type="button"
             variant="rounded"
             name="edit"
-            data-id={id}
-            data-name={name}
-            data-amount={amount}
-            data-type={type}
             data-testid={`${id}-edit`}
+            onClick={() => setEdit({ id, name, type, amount })}
           >
             {t('Edit')}
           </Button>
@@ -33,8 +38,8 @@ function CashflowItem({ amount, className, id, name, type }) {
             type="button"
             variant="rounded"
             name="delete"
-            data-id={id}
             data-testid={`${id}-delete`}
+            onClick={() => handleDelete(id)}
           >
             {t('Delete')}
           </Button>
@@ -63,8 +68,10 @@ const StyledCashflowItem = styled(CashflowItem)`
 CashflowItem.propTypes = {
   amount: PropTypes.number.isRequired,
   className: PropTypes.string.isRequired,
+  handleDelete: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
+  setEdit: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired
 }
 

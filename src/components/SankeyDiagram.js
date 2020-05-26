@@ -7,17 +7,6 @@ import { useTranslation } from 'react-i18next'
 function SankeyDiagram({ className, data }) {
   const { t } = useTranslation()
 
-  const headers = [['From', 'To', 'Weight']]
-  const tranform = data.map(({ name, type, amount }) => {
-    if (type === 'income') {
-      return [name, type, amount]
-    } else {
-      return ['income', name, amount]
-    }
-  })
-
-  const computedData = headers.concat(tranform)
-
   if (!data || !data.length) {
     return (
       <div className={className}>
@@ -28,6 +17,17 @@ function SankeyDiagram({ className, data }) {
       </div>
     )
   }
+
+  const headers = [['From', 'To', 'Weight']]
+  const tranform = data.map(({ name, type, amount }) => {
+    if (type === 'income') {
+      return [name, type, amount]
+    } else {
+      return ['income', name, amount]
+    }
+  })
+
+  const computedData = headers.concat(tranform)
 
   return (
     <div className={className}>
@@ -56,7 +56,6 @@ const StyledSankeyDiagram = styled(SankeyDiagram)`
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow-y: initial;
     `}
 `
 

@@ -6,7 +6,7 @@ import styled, { css } from 'styled-components'
 import CashflowItem from './CashflowItem'
 import { below } from '../utilities/breakpoints'
 
-function CashflowList({ className, data, handleOperations }) {
+function CashflowList({ className, data, handleDelete, setEdit }) {
   const { t } = useTranslation()
 
   if (!data || !data.length) {
@@ -22,7 +22,7 @@ function CashflowList({ className, data, handleOperations }) {
 
   return (
     <div className={className}>
-      <ul onClick={handleOperations}>
+      <ul>
         {data.map(({ id, name, type, amount }) => (
           <CashflowItem
             key={id}
@@ -30,6 +30,8 @@ function CashflowList({ className, data, handleOperations }) {
             name={name}
             type={type}
             amount={amount}
+            handleDelete={handleDelete}
+            setEdit={setEdit}
           />
         ))}
       </ul>
@@ -63,7 +65,8 @@ const StyledCashflowList = styled(CashflowList)`
 CashflowList.propTypes = {
   className: PropTypes.string.isRequired,
   data: PropTypes.array,
-  handleOperations: PropTypes.func.isRequired
+  handleDelete: PropTypes.func.isRequired,
+  setEdit: PropTypes.func.isRequired
 }
 
 export { StyledCashflowList as CashflowList }

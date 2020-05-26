@@ -1,7 +1,6 @@
 import React from 'react'
-import { createStore, applyMiddleware } from 'redux'
+import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import thunk from 'redux-thunk'
 import { render, fireEvent, cleanup } from '@testing-library/react'
 
 import App from '../App'
@@ -13,7 +12,7 @@ jest.mock('../i18next', () => ({}))
 let query, getByText, getByLabelText, getByTestId
 
 beforeEach(() => {
-  const store = createStore(reducer, seedData, applyMiddleware(thunk))
+  const store = createStore(reducer, seedData)
 
   query = render(
     <Provider store={store}>

@@ -41,7 +41,7 @@ export function updateData(updatedData) {
 export function handleReceiveData() {
   return async dispatch => {
     const initialData = await requestInitialData()
-    dispatch(receiveData(initialData))
+    return dispatch(receiveData(initialData))
   }
 }
 
@@ -55,13 +55,13 @@ export function handleAddData(dataInput) {
 export function handleUpdateData(id, updatedDataInput) {
   return async dispatch => {
     const updatedData = await requestUpdateData(id, updatedDataInput)
-    dispatch(updateData(updatedData))
+    return dispatch(updateData(updatedData))
   }
 }
 
 export function handleRemoveData(id) {
   return async dispatch => {
     await requestRemoveData(id)
-    dispatch(removeData(id))
+    return dispatch(removeData(id))
   }
 }
